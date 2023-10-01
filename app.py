@@ -100,7 +100,7 @@ def main():
     st.set_page_config(page_title="ChatPDF",
                        page_icon="🤖")
 
-    st.header("ChatPDF")
+    st.header("TalkPDF")
 
     user_query = st.chat_input(placeholder="Ask away...")
     if user_query:
