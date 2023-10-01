@@ -1,0 +1,14 @@
+langchain
+streamlit
+transformers
+huggingface-hub
+accelerate
+sentence-transformers
+unstructured
+pypdf
+pdf2image
+pypdf2
+python-dotenv
+faiss-cpu
+gradio
+streamlit-chat
