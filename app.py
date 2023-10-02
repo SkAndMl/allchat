@@ -122,10 +122,10 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    st.set_page_config(page_title="AnyChat",
+    st.set_page_config(page_title="AllChat",
                        page_icon="🤖")
 
-    st.header("AnyChat :books:")
+    st.header("AllChat :books:")
     st.caption("Made with :hearts: by [SkAndMl](https://www.linkedin.com/in/sathya-krishnan-suresh-914763217/)")
 
     user_query = st.chat_input(placeholder="Ask away...")
