@@ -12,3 +12,5 @@ python-dotenv
 faiss-cpu
 gradio
 streamlit-chat
+docx2txt
+python-docx

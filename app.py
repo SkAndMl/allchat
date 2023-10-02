@@ -7,16 +7,41 @@ from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from PyPDF2 import PdfReader
 from streamlit_chat import message
+import docx
+
+def get_docx_text(word_doc):
+    text = []
+    doc = docx.Document(word_doc)
+    for para in doc.paragraphs:
+        text.append(para.text)
+    return "\n".join(text)
 
 
+def get_txt_text(txt_doc):
+    st.write(txt_doc.getvalue().decode("utf-8"))
+    return txt_doc.getvalue().decode("utf-8")
 
-def get_pdf_text(pdf_docs):
+def get_pdf_text(pdf_doc):
     text = ""
-    for pdf in pdf_docs:
-        pdf_reader = PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text += page.extract_text()
+    pdf_reader = PdfReader(pdf_doc)
+    for page in pdf_reader.pages:
+        text += page.extract_text()
     return text
+
+
+def get_text_from_files(files):
+    texts = []
+    for file in files:
+        ext = file.name.split(".")[-1]
+        if ext=="pdf":
+            texts.append(get_pdf_text(file))
+        elif ext=="docx":
+            texts.append(get_docx_text(file))
+        elif ext=="txt":
+            texts.append(get_txt_text(file))
+    
+    return "\n".join(texts)
+
 
 def get_text_chunks(raw_text):
     splitter = RecursiveCharacterTextSplitter(
@@ -97,23 +122,24 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    st.set_page_config(page_title="ChatPDF",
+    st.set_page_config(page_title="AnyChat",
                        page_icon="🤖")
 
-    st.header("TalkPDF")
+    st.header("AnyChat :books:")
+    st.caption("Made with :hearts: by [SkAndMl](https://www.linkedin.com/in/sathya-krishnan-suresh-914763217/)")
 
     user_query = st.chat_input(placeholder="Ask away...")
     if user_query:
         handle_input(user_query)
 
     with st.sidebar:
-        pdf_docs = st.file_uploader(label="Upload your PDF files here",
+        files = st.file_uploader(label="Upload your documents here",
                                     accept_multiple_files=True)
         
         if st.button("Process"):
             
             with st.spinner("Processing..."):
-                raw_text = get_pdf_text(pdf_docs=pdf_docs)
+                raw_text = get_text_from_files(files)
                 text_chunks = get_text_chunks(raw_text=raw_text)
                 vector_store = get_vector_store(text_chunks=text_chunks)
 
