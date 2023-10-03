@@ -6,8 +6,8 @@ from langchain.llms import HuggingFaceHub
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from PyPDF2 import PdfReader
-from streamlit_chat import message
 import docx
+import os
 
 def get_docx_text(word_doc):
     text = []
@@ -142,7 +142,8 @@ def main():
                 raw_text = get_text_from_files(files)
                 text_chunks = get_text_chunks(raw_text=raw_text)
                 vector_store = get_vector_store(text_chunks=text_chunks)
-
+                for file in files:
+                    os.remove(file)
                 if st.session_state.chain is None:
                     st.session_state.chain = load_chain(vector_store=vector_store)
 
