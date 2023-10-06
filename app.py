@@ -8,6 +8,9 @@ from langchain.prompts import PromptTemplate
 from PyPDF2 import PdfReader
 import docx
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_docx_text(word_doc):
     text = []
@@ -82,7 +85,7 @@ def load_chain(vector_store):
 
     llm = HuggingFaceHub(
         repo_id="tiiuae/falcon-7b-instruct",
-        huggingfacehub_api_token="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",
+        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
         model_kwargs=model_kwargs
     )
 
