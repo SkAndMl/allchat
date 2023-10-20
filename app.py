@@ -56,7 +56,7 @@ def get_text_chunks(raw_text):
 
 def get_vector_store(text_chunks):
     embeddings = HuggingFaceEmbeddings(
-        model_name="thenlper/gte-large",
+        model_name="thenlper/gte-base",
         model_kwargs={"device" : "cpu"}
     )
     vector_store = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
@@ -145,8 +145,6 @@ def main():
                 raw_text = get_text_from_files(files)
                 text_chunks = get_text_chunks(raw_text=raw_text)
                 vector_store = get_vector_store(text_chunks=text_chunks)
-                for file in files:
-                    os.remove(file)
                 if st.session_state.chain is None:
                     st.session_state.chain = load_chain(vector_store=vector_store)
 
