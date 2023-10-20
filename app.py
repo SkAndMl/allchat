@@ -85,7 +85,7 @@ def load_chain(vector_store):
 
     llm = HuggingFaceHub(
         repo_id="google/flan-t5-xxl",
-        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
+        huggingfacehub_api_token="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", # made public just for a day
         model_kwargs=model_kwargs
     )
 

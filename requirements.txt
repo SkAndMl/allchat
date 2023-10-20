@@ -12,4 +12,3 @@ python-dotenv
 faiss-cpu
 docx2txt
 python-docx
-python-dotenv
