@@ -84,7 +84,7 @@ def load_chain(vector_store):
     }
 
     llm = HuggingFaceHub(
-        repo_id="tiiuae/falcon-7b-instruct",
+        repo_id="google/flan-t5-xxl",
         huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
         model_kwargs=model_kwargs
     )
